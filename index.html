@@ -1,0 +1,98 @@
+html>
+
+<head>
+</head>
+
+<body>
+    <script>
+        const apiKey = '690d9e294b6ff391c8fed39840850187';
+
+
+
+        async function getweather() {
+            document.getElementById("temp").innerHTML = "Загрузка..."
+            const city = document.getElementById("cityName").value;
+            document.getElementById("cityName").value = "";
+            const apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&lang=ru`;
+            const response = await fetch(apiURL);
+            if (!response.ok) {
+                console.log("Ошибка")
+            } else {
+                const data = await response.json();
+                document.getElementById("cityWeather").innerHTML = `Погода в городе ${city}`;
+                document.getElementById("weatherToday").innerHTML = `Погода сейчас в ${city}`;
+                document.getElementById("temp").innerHTML = `${Math.floor(data.main.temp - 273)} Градусов`;
+                document.getElementById("description").innerHTML = data.weather[0].description;
+
+            }
+
+
+
+        } 
+    </script>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background-color: rgb(157, 0, 255);
+            border-radius: 50px;
+            width: 50%;
+
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Calibri';
+
+        }
+
+        body {
+            background-image: linear-gradient(to right, red, yellow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+
+        }
+
+        .label {
+            font-size: 40px;
+            
+
+        }
+
+        .babaika {
+            font-size: 40px;
+        }
+
+        .bubuka {
+            font-size: 35px;
+
+
+        }
+        .inputsubmit{
+            height: 30px;
+
+        }
+    </style>
+    <div class="container">
+        <h1 class="label" id="cityWeather">Погода</h1>
+        <input type="text" size="20" id="cityName" class="inputsubmit">
+        <button id="submit" onclick="getweather()">Посмотеть погоду</button>
+        <h2 class="babaika" id="weatherToday"></h2>
+        <h2 id="temp" class="bubuka"></h2>
+        <h3 id="description" class="bubuka"></h3>
+
+
+
+
+
+
+    </div>
+</body>
+
+</html>
